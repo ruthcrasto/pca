@@ -21,6 +21,7 @@ def load():
     return train_images, train_labels, test_images, test_labels
 
 def show(data, count=9):
+    count = min(count, data.shape[0])
     rows = np.floor(np.sqrt(count))
     cols = np.ceil(count // rows)
     fig = plt.figure(figsize=(2*rows,2*cols))
