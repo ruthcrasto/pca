@@ -2,6 +2,7 @@ import numpy as np
 import os
 import gzip, struct, array
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 
 def parse_labels(filename):
     with gzip.open(filename, 'rb') as fh:
@@ -29,3 +30,21 @@ def show(data, count=9):
         fig.add_subplot(rows, cols, i)
         plt.imshow(data[i-1])
     plt.show()
+
+def plot2D(X, labels=None):
+    assert X.shape[1] == 2
+    x = X[:,0]
+    y = X[:,1]
+    colors = list(mcolors.get_named_colors_mapping().keys())[-19:-9]
+    
+    if labels is not None:
+      for i in range(len(labels)):
+        plt.scatter(x[i],y[i],color=colors[int(labels[i])])
+        plt.annotate(labels[i], (x[i],y[i]))
+    else:
+      plt.scatter(x,y)
+    plt.show()
+
+if __name__ == "__main__":
+    data,_,_,_ = load()
+    show(data)
